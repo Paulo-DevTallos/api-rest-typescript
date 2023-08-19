@@ -2,9 +2,10 @@ import { config } from "dotenv";
 import express from "express";
 import { GetUsersController } from "./controllers/get_users/get-users";
 import { GetUsersReposirotyMongo } from "./controllers/get_users/repositories/get-users.repository-mongo";
+import { MongoClient } from "./database";
 
 config();
-
+MongoClient.connect();
 const app = express();
 
 app.get("/users", async (req, res) => {
