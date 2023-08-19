@@ -1,12 +1,9 @@
 import { User } from "../../models/User";
-
-export interface CreateUserParams {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { CreateUserParams } from "../../repositories/create-user/create-user.repository";
+import { HttpRequest, HttpResponse } from "../global/protocols";
 
 export interface CreateUserProps {
-  createUser(params: CreateUserParams): Promise<User>;
+  handle(
+    httpRequest: HttpRequest<CreateUserParams>,
+  ): Promise<HttpResponse<User>>;
 }

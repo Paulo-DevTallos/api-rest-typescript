@@ -12,7 +12,7 @@ export class CreateUserReposirotyMongo implements CreateUserReposiroty {
       .insertOne(param);
 
     const user = await MongoClient.db
-      .collection<Omit<User, "id">>("user")
+      .collection<Omit<User, "id">>("users")
       .findOne({ _id: insertedId });
 
     if (!user) throw new Error("User not created!");

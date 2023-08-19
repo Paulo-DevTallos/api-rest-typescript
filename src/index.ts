@@ -3,17 +3,34 @@ import express from "express";
 import { GetUsersController } from "./controllers/get_users/get-users.controller";
 import { GetUsersReposirotyMongo } from "./repositories/get-users/get-users.repository-mongo";
 import { MongoClient } from "./database";
+import { CreateUserReposirotyMongo } from "./repositories/create-user/create-user.repository-mongo";
+import { CreateUserController } from "./controllers/create-user/create-user.controller";
 
 config();
 MongoClient.connect();
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/users", async (req, res) => {
   const getUserRepositoryMongo = new GetUsersReposirotyMongo();
   const getUsersController = new GetUsersController(getUserRepositoryMongo);
 
   const { statusCode, body } = await getUsersController.handle();
-  res.send(body).status(statusCode);
+  res.status(statusCode).send(body);
+});
+
+app.post("/users", async (req, res) => {
+  const createUserRepositoryMongo = new CreateUserReposirotyMongo();
+  const createUserController = new CreateUserController(
+    createUserRepositoryMongo,
+  );
+
+  const { statusCode, body } = await createUserController.handle({
+    body: req.body,
+  });
+  res.status(statusCode).send(body);
 });
 
 const port = process.env.PORT || 3036;
