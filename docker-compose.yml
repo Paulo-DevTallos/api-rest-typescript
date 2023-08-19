@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  api-ts:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: api-ts
+    ports:
+      - 3036:3036
+    volumes:
+      - ./:/home/app/clean_api
+    tty: true
+    networks:
+      - typescript-network
+
+  db:
+    image: mongo:4.4
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - /mongodb/dbdata:/data/db
+      - /mongodb/configdb:/data/configdb
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    environment:
+      MONGO_INITDB_DATABASE: crud-clean-api
+    networks:
+      - typescript-network
+
+networks:
+  typescript-network:
+    driver: bridge
