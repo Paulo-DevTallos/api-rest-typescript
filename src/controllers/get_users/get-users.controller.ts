@@ -1,5 +1,5 @@
 import { GetUsersProps } from "./protocols";
-import { GetUsersReposiroty } from "./repositories/get-users.repository";
+import { GetUsersReposiroty } from "../../repositories/get-users/get-users.repository";
 
 export class GetUsersController implements GetUsersProps {
   constructor(private readonly getUserRepository: GetUsersReposiroty) {}

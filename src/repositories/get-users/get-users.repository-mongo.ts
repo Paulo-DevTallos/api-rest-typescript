@@ -1,5 +1,5 @@
-import { MongoClient } from "../../../database";
-import { User } from "../../../models/User";
+import { MongoClient } from "../../database";
+import { User } from "../../models/User";
 import { GetUsersReposiroty } from "./get-users.repository";
 
 export class GetUsersReposirotyMongo implements GetUsersReposiroty {

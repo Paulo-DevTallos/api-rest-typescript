@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import express from "express";
-import { GetUsersController } from "./controllers/get_users/get-users";
-import { GetUsersReposirotyMongo } from "./controllers/get_users/repositories/get-users.repository-mongo";
+import { GetUsersController } from "./controllers/get_users/get-users.controller";
+import { GetUsersReposirotyMongo } from "./repositories/get-users/get-users.repository-mongo";
 import { MongoClient } from "./database";
 
 config();
