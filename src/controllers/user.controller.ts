@@ -8,7 +8,6 @@ export class UserController {
   async createUser(req: Request, res: Response) {
     try {
       const user: CreateUserDto = req.body;
-      console.log(user);
 
       await this.userUseCase.handle(user);
 

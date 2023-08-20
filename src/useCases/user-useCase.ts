@@ -10,6 +10,7 @@ export class UserUseCase {
   async handle(data: CreateUserDto): Promise<User> {
     try {
       const { ...body } = data;
+      console.log(body);
 
       const requiredFields = ["firstName", "lastName", "email", "password"];
 
