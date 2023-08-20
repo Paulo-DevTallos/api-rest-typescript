@@ -6,7 +6,7 @@ export const MongoClient = {
   db: undefined as unknown as Db,
 
   async connect(): Promise<void> {
-    const url = process.env.DB_CONNECTION || "mongodb://db:27017";
+    const url = process.env.DB_CONNECTION || "mongodb://localhost:27017";
 
     const client = new Mongo(url);
     const db = client.db("crud-clean-api");
