@@ -2,21 +2,20 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   CI:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: actions/checkout@3.1.0
 
       - name: Docker login
-        uses: docker/login-action@v2.2.0 
+        uses: docker/login-action@v2.2.0
         with:
-          username: ${{ secret.HUB_DOCKER_USER_NAME }}
-          password: ${{ secret.HUB_DOCKER_PASS }}
+          username: ${{ secrets.HUB_DOCKER_USER_NAME }}
+          password: ${{ secrets.HUB_DOCKER_PASS }}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v4.1.1
@@ -24,6 +23,6 @@ jobs:
           context: .
           file: .
           push: true
-          tags: | 
+          tags: |
             padevdocker/api-rest-ts:v1
             padevdocker/api-rest-ts:latest
