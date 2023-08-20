@@ -1,41 +1,33 @@
 import validator from "validator";
-import { HttpRequest, HttpResponse } from "../controllers/global/protocols";
-import { InterpectorRequest } from "../globals/interceptors";
 import { UserRepository } from "../repositories/user/user.repository";
 import { CreateUserDto } from "../dto/user/create-user.dto";
 import { User } from "../entities/User";
+import { HttpExceptions } from "../types/http.exceptions";
 
-export class UserUseCase implements InterpectorRequest {
+export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async handle(data: HttpRequest<CreateUserDto>): Promise<HttpResponse<User>> {
+  async handle(data: CreateUserDto): Promise<User> {
     try {
-      const { body } = data;
+      const { ...body } = data;
 
       const requiredFields = ["firstName", "lastName", "email", "password"];
 
       for (const field of requiredFields) {
         if (!body?.[field as keyof CreateUserDto]?.length) {
-          return { statusCode: 400, body: `Field ${field} is required` };
+          throw new HttpExceptions(400, `Field ${field} is required`);
         }
       }
 
+      // verificar se usuario ja existe, criar repository de verificação
       const emailIsValid = validator.isEmail(body!.email);
 
-      if (!emailIsValid)
-        return { statusCode: 400, body: "E-mail is not valid" };
+      if (!emailIsValid) throw new HttpExceptions(400, "E-mail is not valid");
 
       const user = await this.userRepository.createUser(body!);
-
-      return {
-        statusCode: 201,
-        body: user,
-      };
+      return user;
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: "Something went wrong",
-      };
+      throw new HttpExceptions(500, "Something went wrong");
     }
   }
 }
