@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import express, { Application } from "express";
 import { MongoClient } from "./database";
 import { UserRouter } from "./routers";
+import { errorMiddleware } from "./middlewares/error.middleware";
 
 export class App {
   public app: Application;
@@ -9,9 +10,20 @@ export class App {
 
   constructor() {
     this.app = express();
+    this.middlewareInitializer();
     this.initRouter();
+    this.interceptors();
     config();
     MongoClient.connect();
+  }
+
+  middlewareInitializer() {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+  }
+
+  interceptors() {
+    this.app.use(errorMiddleware);
   }
 
   initRouter() {
