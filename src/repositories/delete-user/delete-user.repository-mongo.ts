@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { MongoClient } from "../../database";
 import { DeleteUserRepository } from "./delete-user.repository";
-import { User } from "../../models/User";
+import { User } from "../../entities/User";
 import { MongoUser } from "../mongo-protocols";
 
 export class DeleteUserReposirotyMongo implements DeleteUserRepository {

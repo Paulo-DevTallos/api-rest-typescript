@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { MongoClient } from "../../database";
-import { User } from "../../models/User";
+import { User } from "../../entities/User";
 import {
   UpdateUserParams,
   UpdateUserRepository,

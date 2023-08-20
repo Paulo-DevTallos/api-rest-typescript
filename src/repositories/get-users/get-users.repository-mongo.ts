@@ -1,5 +1,5 @@
 import { MongoClient } from "../../database";
-import { User } from "../../models/User";
+import { User } from "../../entities/User";
 import { MongoUser } from "../mongo-protocols";
 import { GetUsersReposiroty } from "./get-users.repository";
 

@@ -1,4 +1,4 @@
-import { User } from "../../models/User";
+import { User } from "../../entities/User";
 import { DeleteUserRepository } from "../../repositories/delete-user/delete-user.repository";
 import {
   HttpRequest,
