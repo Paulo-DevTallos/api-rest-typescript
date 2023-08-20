@@ -3,16 +3,23 @@ import {
   UpdateUserParams,
   UpdateUserRepository,
 } from "../../repositories/update-user/update-user.repository";
-import { HttpRequest, HttpResponse } from "../global/protocols";
-import { UpdateUserProps } from "./protocols";
+import {
+  HttpRequest,
+  HttpResponse,
+  InterceptorController,
+} from "../global/protocols";
 
-export class UpdateUserController implements UpdateUserProps {
+export class UpdateUserController implements InterceptorController {
   constructor(private readonly updateUserRepository: UpdateUserRepository) {}
 
-  async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>> {
+  async handle(
+    httpRequest: HttpRequest<UpdateUserParams>,
+  ): Promise<HttpResponse<User>> {
     try {
       const { id } = httpRequest.params;
       const { body } = httpRequest;
+
+      if (!body) return { statusCode: 400, body: "Missing fields" };
 
       if (!id) return { statusCode: 400, body: "Missing using id" };
 

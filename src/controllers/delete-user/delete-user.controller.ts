@@ -1,9 +1,12 @@
 import { User } from "../../models/User";
 import { DeleteUserRepository } from "../../repositories/delete-user/delete-user.repository";
-import { HttpRequest, HttpResponse } from "../global/protocols";
-import { DeleteUserProps } from "./protocols";
+import {
+  HttpRequest,
+  HttpResponse,
+  InterceptorController,
+} from "../global/protocols";
 
-export class DeleteUserController implements DeleteUserProps {
+export class DeleteUserController implements InterceptorController {
   constructor(private readonly deleteUserRepository: DeleteUserRepository) {}
 
   async handle(httpRequest: HttpRequest<any>): Promise<HttpResponse<User>> {

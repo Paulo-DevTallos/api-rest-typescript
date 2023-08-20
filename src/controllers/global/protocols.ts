@@ -7,3 +7,7 @@ export interface HttpResponse<T> {
   statusCode: number;
   body?: T | string;
 }
+
+export interface InterceptorController {
+  handle(httpRequest: HttpRequest<unknown>): Promise<HttpRequest<unknown>>;
+}

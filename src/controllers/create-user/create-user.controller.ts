@@ -4,10 +4,13 @@ import {
   CreateUserParams,
   CreateUserReposiroty,
 } from "../../repositories/create-user/create-user.repository";
-import { HttpRequest, HttpResponse } from "../global/protocols";
-import { CreateUserProps } from "./protocols";
+import {
+  HttpRequest,
+  HttpResponse,
+  InterceptorController,
+} from "../global/protocols";
 
-export class CreateUserController implements CreateUserProps {
+export class CreateUserController implements InterceptorController {
   constructor(private readonly createUserRepository: CreateUserReposiroty) {}
 
   async handle(
