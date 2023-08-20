@@ -2,11 +2,12 @@ import { ObjectId } from "mongodb";
 import { MongoClient } from "../../database";
 import { DeleteUserRepository } from "./delete-user.repository";
 import { User } from "../../models/User";
+import { MongoUser } from "../mongo-protocols";
 
 export class DeleteUserReposirotyMongo implements DeleteUserRepository {
   async deleteUser(id: string): Promise<User> {
     const user = await MongoClient.db
-      .collection<Omit<User, "id">>("users")
+      .collection<MongoUser>("users")
       .findOne({ _id: new ObjectId(id) });
 
     if (!user) throw new Error("User not found");

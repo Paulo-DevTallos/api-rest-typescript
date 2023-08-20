@@ -1,5 +1,6 @@
 import { MongoClient } from "../../database";
 import { User } from "../../models/User";
+import { MongoUser } from "../mongo-protocols";
 import {
   CreateUserParams,
   CreateUserReposiroty,
@@ -12,7 +13,7 @@ export class CreateUserReposirotyMongo implements CreateUserReposiroty {
       .insertOne(param);
 
     const user = await MongoClient.db
-      .collection<Omit<User, "id">>("users")
+      .collection<MongoUser>("users")
       .findOne({ _id: insertedId });
 
     if (!user) throw new Error("User not created!");

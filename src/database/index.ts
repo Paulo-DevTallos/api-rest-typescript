@@ -16,4 +16,7 @@ export const MongoClient = {
 
     console.log("connection succefull");
   },
+
+  // todo
+  async mapId() {},
 };

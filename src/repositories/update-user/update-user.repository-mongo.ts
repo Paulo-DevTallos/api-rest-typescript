@@ -5,6 +5,7 @@ import {
   UpdateUserParams,
   UpdateUserRepository,
 } from "./update-user.repository";
+import { MongoUser } from "../mongo-protocols";
 
 export class UpdateUserRepositoryMongo implements UpdateUserRepository {
   async updateUser(id: string, params: UpdateUserParams): Promise<User> {
@@ -18,7 +19,7 @@ export class UpdateUserRepositoryMongo implements UpdateUserRepository {
     );
 
     const user = await MongoClient.db
-      .collection<Omit<User, "id">>("users")
+      .collection<MongoUser>("users")
       .findOne({ _id: new ObjectId(id) });
 
     if (!user) throw new Error("User not updated");
