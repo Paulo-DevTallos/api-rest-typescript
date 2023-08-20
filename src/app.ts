@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 import express, { Application } from "express";
 import { MongoClient } from "./database";
-import { UserRouter } from "./routers";
+import { UserRouter } from "./routers/users";
 import { errorMiddleware } from "./middlewares/error.middleware";
 
 export class App {
