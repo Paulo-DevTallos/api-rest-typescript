@@ -19,4 +19,16 @@ export class UserRepositoryMongo implements UserRepository {
     const { _id, ...rest } = user;
     return { id: _id.toHexString(), ...rest };
   }
+
+  async getUsers(): Promise<User[]> {
+    const users = await MongoClient.db
+      .collection<MongoUser>("users")
+      .find({})
+      .toArray();
+
+    return users.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }));
+  }
 }
