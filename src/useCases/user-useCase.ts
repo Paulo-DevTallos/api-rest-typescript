@@ -7,7 +7,7 @@ import { HttpExceptions } from "../types/http.exceptions";
 export class UserUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async handle(data: CreateUserDto): Promise<User> {
+  async createUser(data: CreateUserDto): Promise<User> {
     try {
       const { ...body } = data;
       console.log(body);
@@ -27,6 +27,16 @@ export class UserUseCase {
 
       const user = await this.userRepository.createUser(body!);
       return user;
+    } catch (error) {
+      throw new HttpExceptions(500, "Something went wrong");
+    }
+  }
+
+  async getUsers(): Promise<User[]> {
+    try {
+      const users = await this.userRepository.getUsers();
+
+      return users;
     } catch (error) {
       throw new HttpExceptions(500, "Something went wrong");
     }

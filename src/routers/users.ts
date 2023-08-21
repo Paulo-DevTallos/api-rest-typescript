@@ -20,5 +20,9 @@ export class UserRouter {
       "/user/create",
       this.userController.createUser.bind(this.userController),
     );
+    this.router.get(
+      "/users",
+      this.userController.getUsers.bind(this.userController),
+    );
   }
 }
